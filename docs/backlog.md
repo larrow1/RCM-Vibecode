@@ -5,7 +5,7 @@
 
 ## Current Sprint
 
-_No items in active development._
+_No items in active development. Ready for next feature._
 
 ## Ideas
 
@@ -33,4 +33,6 @@ _No items in active development._
 | 2 | Engagement Workspace | Central hub for assessment scope, data requests, document intake, team, workstream status | 2026-04-02 | `docs/specs/engagement-workspace.md`, `docs/architecture/engagement-workspace.md`, `apps/engagement-workspace/` |
 | 3 | Findings & Recommendations | Cross-workstream findings, evidence linking, recommendations with impact/effort scoring, priority matrix, themes | 2026-04-02 | `docs/specs/findings-recommendations.md`, `apps/findings-recommendations/` |
 | — | AI Config Package | Multi-provider AI model configuration (Anthropic, OpenAI, Google) with React components | 2026-04-02 | `packages/ai-config/` |
+| — | Progress Flow | AI-powered assessment workflow creation and progress tracking with templates | 2026-04-02 | `apps/progress-flow/` |
+| — | App Library | Platform catalog portal for discovering and accessing all apps | 2026-04-02 | `apps/app-library/` |
 | — | Client Hub (deprecated) | Generic CRM — replaced by assessment-focused features | 2026-04-02 | Superseded |

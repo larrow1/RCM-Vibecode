@@ -48,9 +48,24 @@
 - Session-scoped key storage (never persisted to disk)
 - Server-side helpers: getAuthHeaders, getBaseUrl, session store
 
+### 5. App Library (`apps/app-library/`)
+- **Status**: DONE — builds, 26 Playwright e2e tests
+- Platform catalog portal for discovering and accessing all apps
+- Search/filter by name, feature, status
+- Environment-aware URLs
+- Port: 3004
+
 ## What's In Progress
 
-Nothing currently in active development. Ready for next feature.
+### AI Progress Flow (`apps/progress-flow/`)
+- **Status**: DONE — builds, seeds, 50 tests passing
+- AI-powered workflow creation for assessment engagements
+- 3 assessment templates: Full Assessment (5 phases, 31 tasks), Financial DD (4 phases, 16 tasks), Operational Review (3 phases, 13 tasks)
+- Generate flows from templates scoped to engagement context
+- Interactive phase/task board with status tracking and progress visualization
+- Dashboard with engagement-wide completion metrics
+- Seed data: 3 engagements, 1 flow with 5 phases and 31 tasks, 3 templates
+- Port: 3005
 
 ## Next Priorities (from backlog)
 
@@ -68,6 +83,7 @@ Nothing currently in active development. Ready for next feature.
 
 ## Known Issues / Tech Debt
 
+- Bug fixes complete: 10 critical/high + 5 medium = 15 bugs fixed; 6 low remaining
 - `apps/client-hub/` should be removed — deprecated from pre-pivot era
 - No shared auth — each app is standalone; will need shared auth package for multi-user
 - AI features scaffolded via `@rcm/ai-config` but not yet wired into any app
@@ -96,6 +112,7 @@ Nothing currently in active development. Ready for next feature.
 │   ├── financial-analyzer/      # ✅ DONE — Financial analysis tool
 │   ├── engagement-workspace/    # ✅ DONE — Assessment engagement hub
 │   ├── findings-recommendations/ # ✅ DONE — Findings & recommendations engine
+│   ├── progress-flow/           # ✅ DONE — AI progress flow tracker
 │   └── client-hub/              # ⚠️ DEPRECATED
 ├── packages/
 │   └── ai-config/               # ✅ DONE — Multi-provider AI configuration
@@ -111,4 +128,5 @@ Nothing currently in active development. Ready for next feature.
 | Engagement Workspace | 31 | ✅ Passing |
 | Findings & Recommendations | 43 | ✅ Passing |
 | AI Config | 26 | ✅ Passing |
-| **Total** | **174** | ✅ All Passing |
+| Progress Flow | 50 | ✅ Passing |
+| **Total** | **224** | ✅ All Passing |

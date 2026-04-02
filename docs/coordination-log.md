@@ -72,3 +72,24 @@
   - BUG-AL-002: Made app card URLs environment-aware with env var overrides and dev-mode fallback → apps/app-library/components/app-card.tsx
   - BUG-EW-003: Fixed activity type from "team_member_added" to "team_member_removed" → apps/engagement-workspace/app/api/engagements/[id]/team/[memberId]/route.ts
 [2026-04-02 13:15] Developer: All 4 apps build successfully. All tests pass (74 + 31 + 43 + 0 = 148 tests).
+
+## 2026-04-02 — Bug Fixes (Medium)
+
+[2026-04-02 14:00] Developer: Fixed 5 medium-severity bugs:
+  - BUG-FA-005/FA-006: Added onDelete: Cascade to all 6 Engagement child relations in financial-analyzer schema
+  - BUG-FR-008: Added onDelete: Cascade to Finding/Recommendation/Theme relations in findings-recommendations schema
+  - BUG-EW-006: Fixed priority sorting — was alphabetical string sort, now uses PRIORITY_ORDER map (Critical>High>Medium>Low)
+  - BUG-FR-005: Added engagementId filter support to themes GET endpoint
+  - BUG-FR-007: Added ownership verification (fromFindingId check) to finding link DELETE endpoint
+[2026-04-02 14:00] Developer: All tests verified passing (74 + 31 + 43 = 148). Committed and pushed.
+
+## 2026-04-02 — AI Progress Flow Feature
+
+[2026-04-02 14:30] Orchestrator: Starting AI-powered Progress Flow feature — enables consultants to create, track, and automate assessment progress workflows with AI assistance
+[2026-04-02 15:00] Developer: Built Progress Flow Next.js app with: Prisma schema (5 models: Engagement, FlowTemplate, Flow, Phase, Task), 8 API routes (engagements list, flow CRUD, generate, phase create, task CRUD), 4 pages (Dashboard, Flows list, Flow detail, New flow, Templates, Engagements), 2 components (Sidebar, FlowBoard) → apps/progress-flow/
+[2026-04-02 15:00] Developer: Created 3 AI flow templates: Full Assessment (5 phases, 31 tasks), Financial Due Diligence (4 phases, 16 tasks), Operational Review (3 phases, 13 tasks) → apps/progress-flow/lib/flow-templates.ts
+[2026-04-02 15:00] Developer: Seed data: 3 engagements, 1 flow (Acme Full Assessment with partial completion), 3 flow templates → apps/progress-flow/prisma/seed.ts
+[2026-04-02 15:05] QA Engineer: 50 tests passing across 2 test files (flow-templates + validations) → apps/progress-flow/tests/
+[2026-04-02 15:05] Developer: App builds successfully with next build — all pages compile
+[2026-04-02 15:05] Developer: Updated app-library catalog to include Progress Flow → apps/app-library/lib/apps.ts
+[2026-04-02 15:10] Orchestrator: Progress Flow feature complete. Updated current-state.md and coordination-log.md.
