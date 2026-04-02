@@ -1,0 +1,131 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Engagement {
+  id               String   @id @default(cuid())
+  name             String
+  clientName       String
+  type             String
+  status           String   @default("Analysis")
+  startDate        DateTime
+  endDate          DateTime?
+  scopeDescription String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  financialStatements FinancialStatement[]
+  findings            Finding[]
+  benchmarks          Benchmark[]
+  ebitdaAdjustments   EbitdaAdjustment[]
+}
+
+model FinancialStatement {
+  id             String   @id @default(cuid())
+  engagementId   String
+  entity         String
+  statementType  String
+  period         String
+  periodType     String
+  currency       String   @default("USD")
+  sourceFileName String?
+  isNormalized   Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  engagement Engagement         @relation(fields: [engagementId], references: [id])
+  lineItems  FinancialLineItem[]
+
+  @@index([engagementId])
+  @@index([entity, period])
+}
+
+model FinancialLineItem {
+  id                   String  @id @default(cuid())
+  financialStatementId String
+  accountCode          String?
+  accountName          String
+  standardCategory     String?
+  subcategory          String?
+  amount               Float
+  isRecurring          Boolean @default(true)
+  notes                String?
+  sortOrder            Int     @default(0)
+
+  financialStatement FinancialStatement @relation(fields: [financialStatementId], references: [id], onDelete: Cascade)
+  evidenceForFindings FindingEvidence[]
+
+  @@index([financialStatementId])
+  @@index([standardCategory])
+}
+
+model Finding {
+  id              String   @id @default(cuid())
+  engagementId    String
+  workstream      String   @default("Financial")
+  category        String
+  severity        String
+  title           String
+  description     String
+  financialImpact Float?
+  tags            String?
+  status          String   @default("Draft")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  engagement Engagement       @relation(fields: [engagementId], references: [id])
+  evidence   FindingEvidence[]
+
+  @@index([engagementId])
+  @@index([severity])
+  @@index([status])
+}
+
+model FindingEvidence {
+  id         String @id @default(cuid())
+  findingId  String
+  lineItemId String
+
+  finding  Finding           @relation(fields: [findingId], references: [id], onDelete: Cascade)
+  lineItem FinancialLineItem @relation(fields: [lineItemId], references: [id])
+
+  @@index([findingId])
+  @@index([lineItemId])
+}
+
+model Benchmark {
+  id           String  @id @default(cuid())
+  engagementId String?
+  metric       String
+  industry     String
+  source       String
+  percentile25 Float
+  median       Float
+  percentile75 Float
+  year         Int
+  notes        String?
+
+  engagement Engagement? @relation(fields: [engagementId], references: [id])
+
+  @@index([metric, industry])
+}
+
+model EbitdaAdjustment {
+  id             String   @id @default(cuid())
+  engagementId   String
+  description    String
+  amount         Float
+  classification String
+  notes          String?
+  lineItemId     String?
+  createdAt      DateTime @default(now())
+
+  engagement Engagement @relation(fields: [engagementId], references: [id])
+
+  @@index([engagementId])
+}
