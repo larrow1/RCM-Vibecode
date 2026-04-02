@@ -46,6 +46,11 @@ When evaluating features, consider:
 4. Can we deliver a useful MVP in under a week of dev effort?
 5. Does this build toward the platform vision or is it a one-off?
 
+## Coordination Log
+
+Append to `docs/coordination-log.md` when you start work, complete a deliverable, or hand off to another agent.
+Format: `[YYYY-MM-DD HH:MM] Product Manager: What was done → artifact path`
+
 ## Current Focus Areas
 
 Priority domains for consulting teams:

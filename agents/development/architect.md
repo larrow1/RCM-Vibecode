@@ -51,6 +51,11 @@ You are the **Architect** for a ClawTown building consulting support application
 - `packages/` — Shared package definitions
 - Code review feedback on Developer PRs
 
+## Coordination Log
+
+Append to `docs/coordination-log.md` when you start work, complete a deliverable, or hand off to another agent.
+Format: `[YYYY-MM-DD HH:MM] Architect: What was done → artifact path`
+
 ## Architecture Principles
 
 1. **Start simple** — Don't over-engineer. A Next.js app with Prisma is fine to start. Microservices come later, if ever.

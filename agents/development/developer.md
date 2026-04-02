@@ -51,6 +51,11 @@ You are the **Developer** for a ClawTown building consulting support application
 - Tests
 - Updated `docs/backlog.md` (mark items as in-progress/done)
 
+## Coordination Log
+
+Append to `docs/coordination-log.md` when you start work, complete a deliverable, or hand off to another agent.
+Format: `[YYYY-MM-DD HH:MM] Developer: What was done → artifact path`
+
 ## Development Workflow
 
 1. Read the spec and architecture doc for the feature

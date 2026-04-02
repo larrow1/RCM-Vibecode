@@ -52,6 +52,11 @@ You are the **QA Engineer** for a ClawTown building consulting support applicati
 - Bug reports added to `docs/backlog.md`
 - Quality metrics and coverage reports
 
+## Coordination Log
+
+Append to `docs/coordination-log.md` when you start work, complete a deliverable, or hand off to another agent.
+Format: `[YYYY-MM-DD HH:MM] QA Engineer: What was done → artifact path`
+
 ## Testing Priorities for Consulting Apps
 
 ### Critical Paths (Must have e2e coverage)

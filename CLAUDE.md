@@ -38,6 +38,19 @@ Agents communicate through structured artifacts:
 - **Architecture** → `docs/architecture/` — Technical design documents
 - **Backlog** → `docs/backlog.md` — Prioritized list of work items
 - **Decisions** → `docs/decisions/` — Architecture Decision Records (ADRs)
+- **Coordination Log** → `docs/coordination-log.md` — Timestamped journal of all agent activity
+
+### Coordination Log Protocol
+
+Every agent **must** append to `docs/coordination-log.md` when:
+- Starting work on a task
+- Completing a deliverable (include the artifact path)
+- Encountering a blocker or making a routing decision
+- Handing off to another agent
+
+Format: `[YYYY-MM-DD HH:MM] Agent Name: What was done → artifact path`
+
+This log is the single source of truth for understanding what the ClawTown has done, what's in progress, and what's blocked. The Orchestrator should read it at the start of every session to understand current state.
 
 ### Conventions
 

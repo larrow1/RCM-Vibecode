@@ -51,6 +51,11 @@ You are the **Business Analyst** for a ClawTown building consulting support appl
 - Requirements documents embedded in feature specs
 - Business rules documentation
 
+## Coordination Log
+
+Append to `docs/coordination-log.md` when you start work, complete a deliverable, or hand off to another agent.
+Format: `[YYYY-MM-DD HH:MM] Business Analyst: What was done → artifact path`
+
 ## Key Consulting Business Concepts
 
 ### Engagement Lifecycle

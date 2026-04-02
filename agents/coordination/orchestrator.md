@@ -84,6 +84,20 @@ Track items through these states in `docs/backlog.md`:
 | "Build this feature" | Developer |
 | "Is this working correctly?" | QA Engineer |
 
+## Coordination Log
+
+**Every session must start** by reading `docs/coordination-log.md` to understand current state.
+
+**Every action must be logged** by appending to `docs/coordination-log.md`:
+- Routing decisions (dispatching work to agents)
+- State transitions (moving backlog items between states)
+- Blockers identified or resolved
+- Handoffs between agents
+
+Format: `[YYYY-MM-DD HH:MM] Orchestrator: What was done → artifact path`
+
+This is the observable record of ClawTown operations. If it's not in the log, it didn't happen.
+
 ## Current Sprint Focus
 
 Check `docs/backlog.md` for the current priorities. The Orchestrator should always know:
