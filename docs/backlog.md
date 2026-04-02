@@ -5,7 +5,7 @@
 
 ## Current Sprint
 
-_No items in sprint yet. See Ideas below for candidates._
+_No items in active development._
 
 ## Ready for Development
 
@@ -17,7 +17,6 @@ _No items ready yet._
 
 | # | Feature | Description | Status | Owner |
 |---|---------|-------------|--------|-------|
-| 1 | Client Hub | Central dashboard for managing clients, contacts, and engagements | IDEA | — |
 | 2 | Time Tracker | Quick time entry with engagement context, weekly views, submission workflow | IDEA | — |
 | 3 | Consultant Dashboard | Personal view of active engagements, utilization, and upcoming deadlines | IDEA | — |
 
@@ -39,4 +38,6 @@ _No items ready yet._
 
 ## Done
 
-_Nothing shipped yet._
+| # | Feature | Description | Completed | Artifacts |
+|---|---------|-------------|-----------|-----------|
+| 1 | Client Hub | Central dashboard for managing clients, contacts, and engagements | 2026-04-02 | [Spec](specs/client-hub.md), [Architecture](architecture/client-hub.md), [Tests](testing/client-hub-test-plan.md) |
