@@ -1,0 +1,97 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Engagement {
+  id               String   @id @default(cuid())
+  name             String
+  clientName       String
+  type             String
+  status           String   @default("Scoping")
+  startDate        DateTime
+  endDate          DateTime?
+  scopeDescription String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  dataRequests DataRequest[]
+  documents    Document[]
+  teamMembers  TeamMember[]
+  activities   Activity[]
+}
+
+model DataRequest {
+  id            String    @id @default(cuid())
+  engagementId  String
+  category      String
+  description   String
+  priority      String    @default("Medium")
+  status        String    @default("Requested")
+  requestedDate DateTime  @default(now())
+  dueDate       DateTime?
+  receivedDate  DateTime?
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  engagement Engagement @relation(fields: [engagementId], references: [id], onDelete: Cascade)
+  documents  Document[]
+
+  @@index([engagementId])
+  @@index([category])
+  @@index([status])
+}
+
+model Document {
+  id            String   @id @default(cuid())
+  engagementId  String
+  dataRequestId String?
+  fileName      String
+  fileType      String
+  fileSize      Int      @default(0)
+  category      String
+  entity        String?
+  period        String?
+  status        String   @default("Pending")
+  tags          String?
+  uploadedAt    DateTime @default(now())
+
+  engagement  Engagement   @relation(fields: [engagementId], references: [id], onDelete: Cascade)
+  dataRequest DataRequest? @relation(fields: [dataRequestId], references: [id])
+
+  @@index([engagementId])
+  @@index([category])
+  @@index([dataRequestId])
+}
+
+model TeamMember {
+  id           String   @id @default(cuid())
+  engagementId String
+  name         String
+  role         String
+  email        String?
+  createdAt    DateTime @default(now())
+
+  engagement Engagement @relation(fields: [engagementId], references: [id], onDelete: Cascade)
+
+  @@index([engagementId])
+}
+
+model Activity {
+  id           String   @id @default(cuid())
+  engagementId String
+  type         String
+  description  String
+  metadata     String?
+  createdAt    DateTime @default(now())
+
+  engagement Engagement @relation(fields: [engagementId], references: [id], onDelete: Cascade)
+
+  @@index([engagementId])
+  @@index([createdAt])
+}

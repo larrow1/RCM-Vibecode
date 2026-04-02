@@ -1,0 +1,144 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Engagement {
+  id               String   @id @default(cuid())
+  name             String
+  clientName       String
+  type             String
+  status           String   @default("Synthesis")
+  startDate        DateTime
+  endDate          DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  findings         Finding[]
+  recommendations  Recommendation[]
+  themes           Theme[]
+}
+
+model Finding {
+  id              String   @id @default(cuid())
+  engagementId    String
+  workstream      String
+  category        String
+  severity        String
+  title           String
+  description     String
+  financialImpact Float?
+  tags            String?
+  status          String   @default("Draft")
+  createdBy       String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  engagement             Engagement              @relation(fields: [engagementId], references: [id])
+  evidence               Evidence[]
+  linksFrom              FindingLink[]            @relation("FindingLinkFrom")
+  linksTo                FindingLink[]            @relation("FindingLinkTo")
+  recommendationFindings RecommendationFinding[]
+  themeFindings          ThemeFinding[]
+
+  @@index([engagementId])
+  @@index([workstream])
+  @@index([severity])
+  @@index([status])
+}
+
+model Evidence {
+  id          String  @id @default(cuid())
+  findingId   String
+  description String
+  sourceType  String?
+  sourceRef   String?
+
+  finding Finding @relation(fields: [findingId], references: [id], onDelete: Cascade)
+
+  @@index([findingId])
+}
+
+model FindingLink {
+  id            String  @id @default(cuid())
+  fromFindingId String
+  toFindingId   String
+  description   String?
+
+  fromFinding Finding @relation("FindingLinkFrom", fields: [fromFindingId], references: [id], onDelete: Cascade)
+  toFinding   Finding @relation("FindingLinkTo", fields: [toFindingId], references: [id], onDelete: Cascade)
+
+  @@unique([fromFindingId, toFindingId])
+  @@index([fromFindingId])
+  @@index([toFindingId])
+}
+
+model Recommendation {
+  id               String   @id @default(cuid())
+  engagementId     String
+  title            String
+  description      String
+  type             String
+  status           String   @default("Draft")
+  impactBase       Float?
+  impactAdjPct     Float?
+  impactConfidence String?
+  effort           String?
+  timeframe        String?
+  risks            String?
+  dependencies     String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  engagement             Engagement              @relation(fields: [engagementId], references: [id])
+  recommendationFindings RecommendationFinding[]
+
+  @@index([engagementId])
+  @@index([type])
+  @@index([status])
+}
+
+model RecommendationFinding {
+  id               String @id @default(cuid())
+  recommendationId String
+  findingId        String
+
+  recommendation Recommendation @relation(fields: [recommendationId], references: [id], onDelete: Cascade)
+  finding        Finding        @relation(fields: [findingId], references: [id], onDelete: Cascade)
+
+  @@unique([recommendationId, findingId])
+  @@index([recommendationId])
+  @@index([findingId])
+}
+
+model Theme {
+  id           String   @id @default(cuid())
+  engagementId String
+  name         String
+  description  String?
+  color        String   @default("#3B82F6")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  engagement    Engagement     @relation(fields: [engagementId], references: [id])
+  themeFindings ThemeFinding[]
+
+  @@index([engagementId])
+}
+
+model ThemeFinding {
+  id        String @id @default(cuid())
+  themeId   String
+  findingId String
+
+  theme   Theme   @relation(fields: [themeId], references: [id], onDelete: Cascade)
+  finding Finding @relation(fields: [findingId], references: [id], onDelete: Cascade)
+
+  @@unique([themeId, findingId])
+  @@index([themeId])
+  @@index([findingId])
+}

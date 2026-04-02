@@ -18,19 +18,35 @@
 - EBITDA normalization with adjustment tracking
 - Findings capture linked to financial evidence
 - Seed data: 3 years monthly P&L for Acme Corp (864 line items)
-- Spec: `docs/specs/financial-analyzer.md`
-- Architecture: `docs/architecture/financial-analyzer.md`
-- Tests: `docs/testing/financial-analyzer-test-plan.md`
+- Port: 3001
 
-### 2. AI Config Package (`packages/ai-config/`)
+### 2. Engagement Workspace (`apps/engagement-workspace/`)
+- **Status**: DONE — builds, seeds, 31 tests passing
+- Engagement overview with client, scope, status, timeline
+- Data request tracker with status (Requested/Received/Overdue/N/A), bulk updates
+- Document intake with category tagging and data request linking
+- Workstream progress cards (Financial, Organizational, Contracts)
+- Team management with roles
+- Activity feed with timestamped entries
+- Seed data: 3 engagements, 25 data requests, 12 documents, 7 team members
+- Port: 3003
+
+### 3. Findings & Recommendations (`apps/findings-recommendations/`)
+- **Status**: DONE — builds, seeds, 43 tests passing
+- Findings capture by workstream (Financial, Org, Contracts, Cross-Cutting) with severity and evidence
+- Cross-referencing between findings via FindingLinks
+- Recommendations with impact calculator (base × adjustment% × confidence ÷ effort)
+- Priority matrix (Quick Win / Strategic Initiative / Fill-in / Deprioritize)
+- Theme grouping for related findings
+- Seed data: 8 findings, 6 cross-references, 5 recommendations, 3 themes
+- Port: 3002 (default)
+
+### 4. AI Config Package (`packages/ai-config/`)
 - **Status**: DONE — 26 tests passing
 - Multi-provider support: Anthropic, OpenAI, Google AI
 - React components: AIConfigPanel, AIConfigBadge, useAIConfig hook
 - Session-scoped key storage (never persisted to disk)
 - Server-side helpers: getAuthHeaders, getBaseUrl, session store
-
-### 3. Client Hub (`apps/client-hub/`) — DEPRECATED
-- Built before the pivot to assessment focus. Superseded by new apps.
 
 ## What's In Progress
 
@@ -40,29 +56,29 @@ Nothing currently in active development. Ready for next feature.
 
 | Priority | Feature | Why |
 |----------|---------|-----|
-| **1** | Engagement Workspace (#2) | Central hub tying together all assessment data — needed to connect financial, org, and contract analysis into one engagement |
-| **2** | Findings & Recommendations (#3) | Cross-workstream findings capture and recommendation synthesis — the core analytical output |
-| **3** | Org Mapper (#4) | Visualize and analyze org structures — second most common assessment workstream |
-| **4** | Contract Tracker (#5) | Catalog contracts, extract terms, track obligations — third core workstream |
-| **5** | Deliverable Builder (#6) | Generate reports from structured findings — huge time saver (20-30% of engagement hours) |
+| **1** | Org Mapper (#4) | Visualize and analyze org structures — hierarchy, spans of control, headcount, labor costs. Core assessment workstream. |
+| **2** | Contract Tracker (#5) | Catalog contracts, extract key terms, track obligations. Completes the three-pillar assessment capability. |
+| **3** | Deliverable Builder (#6) | Generate reports from findings/recommendations. Saves 20-30% of engagement time on formatting. |
 
 ## Key Research Artifacts
 
 - **Personas**: Rachel (financial DD lead), James (org consultant), Priya (contract specialist), Marcus (engagement lead) → `docs/research/findings/assessment-consultant-research.md`
-- **Workflow**: 5-phase assessment lifecycle (Scoping → Ingestion → Analysis → Synthesis → Deliverable) → `docs/research/workflows/assessment-workflow.md`
-- **Domain Model**: 10 entities (Engagement, DataRequest, Document, FinancialStatement, OrgUnit, Contract, Finding, Recommendation, Deliverable, Benchmark) → `docs/domain-model.md`
+- **Workflow**: 5-phase lifecycle (Scoping → Ingestion → Analysis → Synthesis → Deliverable) → `docs/research/workflows/assessment-workflow.md`
+- **Domain Model**: 10 entities → `docs/domain-model.md`
 
 ## Known Issues / Tech Debt
 
-- `apps/client-hub/` should be removed or repurposed — it's from the pre-pivot era
-- Financial Analyzer uses SQLite for dev — will need PostgreSQL migration for production
-- No authentication implemented yet — will need shared auth package when multi-user
-- No integration between Financial Analyzer and @rcm/ai-config yet — AI features are scaffolded but not wired
+- `apps/client-hub/` should be removed — deprecated from pre-pivot era
+- No shared auth — each app is standalone; will need shared auth package for multi-user
+- AI features scaffolded via `@rcm/ai-config` but not yet wired into any app
+- All apps use SQLite for dev — will need PostgreSQL migration for production
+- No integration between apps — each runs independently; future: shared engagement context
+- Need front-end UI testing (user has expressed interest in this)
 
 ## Repo Structure
 
 ```
-├── CLAUDE.md                    # Coordination protocol
+├── CLAUDE.md                    # Coordination protocol + resilience protocol
 ├── agents/                      # Agent role definitions (7 agents, 3 teams)
 ├── docs/
 │   ├── current-state.md         # ← YOU ARE HERE
@@ -70,14 +86,29 @@ Nothing currently in active development. Ready for next feature.
 │   ├── backlog.md               # Prioritized feature backlog
 │   ├── domain-model.md          # Entity definitions and relationships
 │   ├── specs/                   # Feature specifications
+│   │   ├── financial-analyzer.md
+│   │   ├── engagement-workspace.md
+│   │   └── findings-recommendations.md
 │   ├── architecture/            # Technical design docs
 │   ├── research/                # User research and workflow analysis
 │   └── testing/                 # Test plans
 ├── apps/
 │   ├── financial-analyzer/      # ✅ DONE — Financial analysis tool
+│   ├── engagement-workspace/    # ✅ DONE — Assessment engagement hub
+│   ├── findings-recommendations/ # ✅ DONE — Findings & recommendations engine
 │   └── client-hub/              # ⚠️ DEPRECATED
 ├── packages/
 │   └── ai-config/               # ✅ DONE — Multi-provider AI configuration
 ├── package.json                 # Monorepo root (npm workspaces)
 └── turbo.json                   # Turborepo config
 ```
+
+## Test Summary
+
+| App/Package | Tests | Status |
+|-------------|-------|--------|
+| Financial Analyzer | 74 | ✅ Passing |
+| Engagement Workspace | 31 | ✅ Passing |
+| Findings & Recommendations | 43 | ✅ Passing |
+| AI Config | 26 | ✅ Passing |
+| **Total** | **174** | ✅ All Passing |
