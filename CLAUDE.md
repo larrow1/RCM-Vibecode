@@ -1,8 +1,8 @@
-# ClawTown: Consulting Support Platform
+# ClawTown: Assessment Consultant Platform
 
 ## Overview
 
-This repo is a **ClawTown** — a coordinated multi-agent system where specialized AI agents operate as product and development teams to build applications that support a team of consultants.
+This repo is a **ClawTown** — a coordinated multi-agent system where specialized AI agents operate as product and development teams to build applications that support **assessment consultants** — professionals who evaluate organizations by analyzing their financials, organizational structure, contracts, and operations to produce actionable recommendations.
 
 ## How This ClawTown Works
 
@@ -49,13 +49,19 @@ Agents communicate through structured artifacts:
 
 ## Target Domain
 
-The platform serves **consulting teams** who need tools for:
-- Client engagement tracking and CRM
-- Time tracking and billing
-- Project management and resource allocation
-- Knowledge management and reusable deliverables
-- Proposal generation and scoping
-- Reporting and analytics dashboards
+The platform serves **assessment consultants** who need tools for:
+
+### Core Assessment Workflows
+- **Financial Analysis** — Ingest, normalize, and analyze financial statements (P&L, balance sheet, cash flow) across entities and time periods. Ratio analysis, trend identification, benchmarking against industry standards.
+- **Organizational Assessment** — Map org structures, analyze reporting lines, identify span-of-control issues, assess role clarity, flag duplications and gaps. Headcount and labor cost analysis.
+- **Contract Review & Tracking** — Catalog active contracts, extract key terms (duration, value, renewal clauses, termination provisions, SLAs), identify risks and obligations, track expirations.
+- **Recommendation Engine** — Synthesize findings from financial, org, and contract analysis into structured recommendations with impact estimates, effort levels, and prioritization.
+
+### Supporting Workflows
+- **Engagement Management** — Track assessment engagements, scope, timelines, and deliverables
+- **Document Management** — Organize and tag source documents (financials, org charts, contracts, policies)
+- **Deliverable Generation** — Produce assessment reports, executive summaries, and presentation decks from structured findings
+- **Benchmarking** — Compare metrics against industry standards and peer organizations
 
 ## Tech Preferences
 

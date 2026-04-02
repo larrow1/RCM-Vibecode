@@ -7,9 +7,11 @@
 
 _No items in active development._
 
-## Ready for Development
+## In Pipeline
 
-_No items ready yet._
+| # | Feature | Description | Status | Owner |
+|---|---------|-------------|--------|-------|
+| 1 | Financial Analyzer | Ingest financial statements, normalize across periods/entities, ratio analysis, trend identification, peer benchmarking | RESEARCHING | User Researcher, Business Analyst |
 
 ## Ideas
 
@@ -17,27 +19,27 @@ _No items ready yet._
 
 | # | Feature | Description | Status | Owner |
 |---|---------|-------------|--------|-------|
-| 2 | Time Tracker | Quick time entry with engagement context, weekly views, submission workflow | IDEA | — |
-| 3 | Consultant Dashboard | Personal view of active engagements, utilization, and upcoming deadlines | IDEA | — |
+| 2 | Engagement Workspace | Central hub for managing assessment scope, data requests, document intake, timelines, and team coordination | IDEA | — |
+| 3 | Findings & Recommendations | Capture findings from analysis, link to evidence, synthesize into prioritized recommendations with impact/effort estimates | IDEA | — |
 
 ### Medium Priority
 
 | # | Feature | Description | Status | Owner |
 |---|---------|-------------|--------|-------|
-| 4 | Knowledge Base | Searchable library of past deliverables, templates, and best practices | IDEA | — |
-| 5 | Billing & Invoicing | Generate invoices from approved time entries, track payment status | IDEA | — |
-| 6 | Resource Planner | View team capacity, staff engagements, forecast utilization | IDEA | — |
+| 4 | Org Mapper | Visualize and analyze organizational structures — hierarchy, spans of control, role clarity, headcount, labor cost allocation | IDEA | — |
+| 5 | Contract Tracker | Catalog contracts, extract key terms (value, duration, renewal, termination, SLAs), track obligations, flag risks | IDEA | — |
+| 6 | Deliverable Builder | Generate assessment reports, executive summaries, and presentation decks from structured findings and recommendations | IDEA | — |
 
 ### Future
 
 | # | Feature | Description | Status | Owner |
 |---|---------|-------------|--------|-------|
-| 7 | Proposal Builder | Generate proposals from templates with scoping calculator | IDEA | — |
-| 8 | Reports & Analytics | Utilization dashboards, revenue reports, engagement profitability | IDEA | — |
-| 9 | Notifications & Reminders | Timesheet reminders, engagement milestones, invoice due dates | IDEA | — |
+| 7 | Benchmarking Library | Maintain industry/peer benchmarks for financial ratios, org metrics, and contract terms for comparison | IDEA | — |
+| 8 | Document Intelligence | AI-assisted extraction of structured data from unstructured documents (PDFs, spreadsheets, scanned org charts) | IDEA | — |
+| 9 | Cross-Engagement Analytics | Compare findings and metrics across past engagements to identify patterns and improve assessments | IDEA | — |
 
 ## Done
 
 | # | Feature | Description | Completed | Artifacts |
 |---|---------|-------------|-----------|-----------|
-| 1 | Client Hub | Central dashboard for managing clients, contacts, and engagements | 2026-04-02 | [Spec](specs/client-hub.md), [Architecture](architecture/client-hub.md), [Tests](testing/client-hub-test-plan.md) |
+| — | Client Hub (deprecated) | Generic CRM — replaced by assessment-focused features | 2026-04-02 | Superseded |

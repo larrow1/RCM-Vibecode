@@ -1,10 +1,16 @@
-# RCM ClawTown — Consulting Support Platform
+# RCM ClawTown — Assessment Consultant Platform
 
-A **ClawTown** of coordinated AI agents that operate as product and development teams to build applications supporting a consulting team.
+A **ClawTown** of coordinated AI agents building tools for **assessment consultants** — professionals who evaluate organizations by analyzing financials, org structures, contracts, and operations to produce actionable recommendations.
 
-## What is This?
+## Who Is This For?
 
-This repo contains a multi-agent system organized like a small software company. Each agent has a specialized role, and they collaborate through shared documents and structured workflows to ideate, design, build, and ship consulting support tools.
+Consultants who do:
+- **Financial due diligence** — Analyze P&L, balance sheets, cash flow across entities and periods
+- **Organizational assessments** — Map structures, evaluate spans of control, identify gaps and overlaps
+- **Contract portfolio reviews** — Catalog terms, track obligations, flag risks and expirations
+- **Operational assessments** — Synthesize findings into prioritized, impact-estimated recommendations
+
+## Agent Teams
 
 ```
                     ┌─────────────────┐
@@ -23,43 +29,20 @@ This repo contains a multi-agent system organized like a small software company.
      └─────────────┘ └────────────┘ └────────────┘
 ```
 
-## Teams & Agents
-
-### Product Team (`agents/product/`)
-| Agent | Role |
-|-------|------|
-| **Product Manager** | Owns backlog, writes specs, prioritizes by consultant impact |
-| **User Researcher** | Understands consultant needs, validates ideas, reviews usability |
-| **Business Analyst** | Maps workflows, defines requirements, models the domain |
-
-### Development Team (`agents/development/`)
-| Agent | Role |
-|-------|------|
-| **Architect** | System design, tech stack decisions, code review |
-| **Developer** | Full-stack implementation across all apps |
-| **QA Engineer** | Test strategy, quality gates, bug triage |
-
-### Coordination (`agents/coordination/`)
-| Agent | Role |
-|-------|------|
-| **Orchestrator** | Routes work between teams, manages dependencies, resolves blockers |
-
 ## Target Applications
-
-Tools for consulting teams, built as a monorepo:
 
 | App | Purpose |
 |-----|---------|
-| **Client Hub** | Client & engagement tracking, contacts, CRM |
-| **Time Tracker** | Time entry, weekly views, submission workflows |
-| **Knowledge Base** | Reusable deliverables, templates, best practices |
-| **Project Board** | Task management, milestones, resource allocation |
-| **Proposal Builder** | Proposal generation with scoping calculator |
+| **Financial Analyzer** | Ingest financial statements, normalize data, run ratio/trend analysis, benchmark against peers |
+| **Org Mapper** | Build and visualize org structures, analyze spans of control, headcount, labor costs |
+| **Contract Tracker** | Catalog contracts, extract key terms, track obligations and expirations, flag risks |
+| **Findings & Recommendations** | Capture analytical findings, synthesize into prioritized recommendations with impact estimates |
+| **Engagement Workspace** | Manage assessment scope, data requests, document intake, and deliverable production |
 
 ## Repo Structure
 
 ```
-├── CLAUDE.md               # Agent coordination protocol
+├── CLAUDE.md               # Agent coordination protocol & domain context
 ├── agents/
 │   ├── product/            # Product team agent definitions
 │   ├── development/        # Dev team agent definitions
@@ -76,18 +59,6 @@ Tools for consulting teams, built as a monorepo:
 └── packages/               # Shared libraries
 ```
 
-## How It Works
-
-1. **Product team** identifies consultant pain points and writes specs
-2. **Orchestrator** routes specs to the dev team
-3. **Architect** creates technical designs
-4. **Developer** implements features
-5. **QA Engineer** validates quality
-6. **User Researcher** confirms it solves the real problem
-7. Feedback loops back to step 1
-
-See [CLAUDE.md](./CLAUDE.md) for the full coordination protocol.
-
 ## Tech Stack
 
 - **Frontend**: React + Next.js + Tailwind CSS
@@ -98,10 +69,4 @@ See [CLAUDE.md](./CLAUDE.md) for the full coordination protocol.
 
 ## Getting Started
 
-To engage the ClawTown, start with the **Orchestrator** agent. It will assess the current state of the backlog and route work to the appropriate team members.
-
-```
-Start with: agents/coordination/orchestrator.md
-Backlog:    docs/backlog.md
-Domain:     docs/domain-model.md
-```
+Start with the **Orchestrator** (`agents/coordination/orchestrator.md`), which reads the backlog and drives work through the pipeline.
