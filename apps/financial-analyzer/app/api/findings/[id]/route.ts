@@ -6,25 +6,30 @@ export async function GET(
   _request: Request,
   { params }: { params: { id: string } }
 ) {
-  const finding = await prisma.finding.findUnique({
-    where: { id: params.id },
-    include: {
-      engagement: true,
-      evidence: {
-        include: {
-          lineItem: {
-            include: { financialStatement: true },
+  try {
+    const finding = await prisma.finding.findUnique({
+      where: { id: params.id },
+      include: {
+        engagement: true,
+        evidence: {
+          include: {
+            lineItem: {
+              include: { financialStatement: true },
+            },
           },
         },
       },
-    },
-  });
+    });
 
-  if (!finding) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
+    if (!finding) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(finding);
+  } catch (error) {
+    console.error("Failed to fetch finding:", error);
+    return NextResponse.json({ error: "Failed to fetch finding" }, { status: 500 });
   }
-
-  return NextResponse.json(finding);
 }
 
 export async function PATCH(
@@ -50,9 +55,14 @@ export async function DELETE(
   _request: Request,
   { params }: { params: { id: string } }
 ) {
-  await prisma.finding.delete({
-    where: { id: params.id },
-  });
+  try {
+    await prisma.finding.delete({
+      where: { id: params.id },
+    });
 
-  return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Failed to delete finding:", error);
+    return NextResponse.json({ error: "Failed to delete finding" }, { status: 500 });
+  }
 }

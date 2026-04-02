@@ -14,7 +14,7 @@ const workstreamMeta: Record<
     label: "Financial Analysis",
     icon: "chart",
     color: "border-green-500",
-    link: "http://localhost:3002",
+    link: process.env.NEXT_PUBLIC_FINANCIAL_ANALYZER_URL || "http://localhost:3002",
   },
   Organizational: {
     label: "Org Assessment",

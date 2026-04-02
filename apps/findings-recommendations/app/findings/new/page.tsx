@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const workstreams = ["Financial", "Organizational", "Contracts", "CrossCutting"];
@@ -13,11 +13,31 @@ interface EvidenceItem {
   sourceRef: string;
 }
 
+interface EngagementOption {
+  id: string;
+  name: string;
+  clientName: string;
+}
+
 export default function NewFindingPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [evidence, setEvidence] = useState<EvidenceItem[]>([]);
+  const [engagements, setEngagements] = useState<EngagementOption[]>([]);
+  const [selectedEngagementId, setSelectedEngagementId] = useState("");
+
+  useEffect(() => {
+    fetch("/api/engagements")
+      .then((res) => res.json())
+      .then((data) => {
+        setEngagements(data);
+        if (data.length > 0) {
+          setSelectedEngagementId(data[0].id);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -83,7 +103,25 @@ export default function NewFindingPage() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <input type="hidden" name="engagementId" value="engagement-1" />
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Engagement
+          </label>
+          <select
+            name="engagementId"
+            required
+            value={selectedEngagementId}
+            onChange={(e) => setSelectedEngagementId(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+          >
+            <option value="" disabled>Select an engagement...</option>
+            {engagements.map((eng) => (
+              <option key={eng.id} value={eng.id}>
+                {eng.name} ({eng.clientName})
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>

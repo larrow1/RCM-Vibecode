@@ -58,3 +58,17 @@
   - Findings & Recommendations: 43 tests passing (impact calculator, quadrant classification, validation schemas)
 [2026-04-02 06:10] QA Engineer: Both apps build successfully with `next build`
 [2026-04-02 06:15] Orchestrator: Updated backlog — Engagement Workspace and Findings & Recommendations moved to DONE
+
+## 2026-04-02 — Bug Fixes (Critical + High)
+
+[2026-04-02 13:00] QA Engineer: Completed full cross-app audit — 26 bugs identified (3 Critical, 7 High, 10 Medium, 6 Low) → docs/testing/bug-report.md
+[2026-04-02 13:15] Developer: Fixed 10 Critical and High bugs:
+  - BUG-CROSS-001/BUG-FA-001/BUG-FR-001: Prisma client isolation already in place (verified)
+  - BUG-FR-002/BUG-FR-003: Dynamic engagement selectors already in place (verified)
+  - BUG-FA-002: Added try/catch to all financial-analyzer GET/DELETE routes (9 handlers across 7 files)
+  - BUG-FR-004: Fixed impact API quadrant — computes median threshold from all recommendations instead of using self-referential threshold → apps/findings-recommendations/app/api/impact/route.ts
+  - BUG-EW-001/BUG-EW-002: Replaced hardcoded localhost:3002 with NEXT_PUBLIC_FINANCIAL_ANALYZER_URL env var with fallback → apps/engagement-workspace/components/layout/sidebar.tsx, components/engagements/workstream-cards.tsx
+  - BUG-AL-001/BUG-AL-003: Created vitest.config.ts excluding e2e/ directory → apps/app-library/vitest.config.ts
+  - BUG-AL-002: Made app card URLs environment-aware with env var overrides and dev-mode fallback → apps/app-library/components/app-card.tsx
+  - BUG-EW-003: Fixed activity type from "team_member_added" to "team_member_removed" → apps/engagement-workspace/app/api/engagements/[id]/team/[memberId]/route.ts
+[2026-04-02 13:15] Developer: All 4 apps build successfully. All tests pass (74 + 31 + 43 + 0 = 148 tests).

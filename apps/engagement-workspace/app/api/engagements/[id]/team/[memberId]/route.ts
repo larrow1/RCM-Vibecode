@@ -23,7 +23,7 @@ export async function DELETE(
     await prisma.activity.create({
       data: {
         engagementId: params.id,
-        type: "team_member_added",
+        type: "team_member_removed",
         description: `${existing.name} removed from team`,
       },
     });

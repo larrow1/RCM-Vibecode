@@ -3,19 +3,24 @@ import { prisma } from "@/lib/prisma";
 import { createEngagementSchema } from "@/lib/validations";
 
 export async function GET() {
-  const engagements = await prisma.engagement.findMany({
-    include: {
-      _count: {
-        select: {
-          financialStatements: true,
-          findings: true,
+  try {
+    const engagements = await prisma.engagement.findMany({
+      include: {
+        _count: {
+          select: {
+            financialStatements: true,
+            findings: true,
+          },
         },
       },
-    },
-    orderBy: { updatedAt: "desc" },
-  });
+      orderBy: { updatedAt: "desc" },
+    });
 
-  return NextResponse.json(engagements);
+    return NextResponse.json(engagements);
+  } catch (error) {
+    console.error("Failed to fetch engagements:", error);
+    return NextResponse.json({ error: "Failed to fetch engagements" }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {

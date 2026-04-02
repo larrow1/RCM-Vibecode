@@ -6,24 +6,29 @@ export async function GET(
   _request: Request,
   { params }: { params: { id: string } }
 ) {
-  const engagement = await prisma.engagement.findUnique({
-    where: { id: params.id },
-    include: {
-      financialStatements: {
-        include: { lineItems: true },
-        orderBy: { period: "asc" },
+  try {
+    const engagement = await prisma.engagement.findUnique({
+      where: { id: params.id },
+      include: {
+        financialStatements: {
+          include: { lineItems: true },
+          orderBy: { period: "asc" },
+        },
+        findings: true,
+        benchmarks: true,
+        ebitdaAdjustments: true,
       },
-      findings: true,
-      benchmarks: true,
-      ebitdaAdjustments: true,
-    },
-  });
+    });
 
-  if (!engagement) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
+    if (!engagement) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(engagement);
+  } catch (error) {
+    console.error("Failed to fetch engagement:", error);
+    return NextResponse.json({ error: "Failed to fetch engagement" }, { status: 500 });
   }
-
-  return NextResponse.json(engagement);
 }
 
 export async function PATCH(

@@ -27,7 +27,7 @@ export function Sidebar() {
           Assessment Consultant Platform
         </div>
         <a
-          href="http://localhost:3002"
+          href={process.env.NEXT_PUBLIC_FINANCIAL_ANALYZER_URL || "http://localhost:3002"}
           target="_blank"
           rel="noopener noreferrer"
           className="block mt-2 text-xs text-blue-400 hover:text-blue-300"

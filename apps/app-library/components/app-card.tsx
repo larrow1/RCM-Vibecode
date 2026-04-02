@@ -87,15 +87,32 @@ export function AppCard({ app }: AppCardProps) {
       {/* Launch button for live apps */}
       {app.status === "live" && app.port && (
         <div className="mt-4">
-          <a
-            href={`http://localhost:${app.port}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-            data-testid={`launch-btn-${app.id}`}
-          >
-            Open App →
-          </a>
+          {(() => {
+            const envVarMap: Record<string, string | undefined> = {
+              "financial-analyzer": process.env.NEXT_PUBLIC_FINANCIAL_ANALYZER_URL,
+              "engagement-workspace": process.env.NEXT_PUBLIC_ENGAGEMENT_WORKSPACE_URL,
+              "findings-recommendations": process.env.NEXT_PUBLIC_FINDINGS_RECOMMENDATIONS_URL,
+            };
+            const appUrl = envVarMap[app.id] || (process.env.NODE_ENV === "development" ? `http://localhost:${app.port}` : undefined);
+            return appUrl ? (
+              <a
+                href={appUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                data-testid={`launch-btn-${app.id}`}
+              >
+                Open App →
+              </a>
+            ) : (
+              <span
+                className="inline-flex w-full items-center justify-center rounded-lg bg-gray-200 px-4 py-2 text-sm font-medium text-gray-500"
+                data-testid={`launch-btn-${app.id}`}
+              >
+                Dev port: {app.port}
+              </span>
+            );
+          })()}
         </div>
       )}
     </div>

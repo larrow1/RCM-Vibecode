@@ -3,27 +3,32 @@ import { prisma } from "@/lib/prisma";
 import { createFindingSchema } from "@/lib/validations";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const engagementId = searchParams.get("engagementId");
-  const severity = searchParams.get("severity");
-  const status = searchParams.get("status");
+  try {
+    const { searchParams } = new URL(request.url);
+    const engagementId = searchParams.get("engagementId");
+    const severity = searchParams.get("severity");
+    const status = searchParams.get("status");
 
-  const where: Record<string, unknown> = {};
-  if (engagementId) where.engagementId = engagementId;
-  if (severity) where.severity = severity;
-  if (status) where.status = status;
+    const where: Record<string, unknown> = {};
+    if (engagementId) where.engagementId = engagementId;
+    if (severity) where.severity = severity;
+    if (status) where.status = status;
 
-  const findings = await prisma.finding.findMany({
-    where,
-    include: {
-      evidence: {
-        include: { lineItem: true },
+    const findings = await prisma.finding.findMany({
+      where,
+      include: {
+        evidence: {
+          include: { lineItem: true },
+        },
       },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+      orderBy: { createdAt: "desc" },
+    });
 
-  return NextResponse.json(findings);
+    return NextResponse.json(findings);
+  } catch (error) {
+    console.error("Failed to fetch findings:", error);
+    return NextResponse.json({ error: "Failed to fetch findings" }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {

@@ -32,6 +32,20 @@ export default function NewRecommendationPage() {
   const [error, setError] = useState<string | null>(null);
   const [findings, setFindings] = useState<FindingOption[]>([]);
   const [selectedFindingIds, setSelectedFindingIds] = useState<string[]>([]);
+  const [engagements, setEngagements] = useState<Array<{ id: string; name: string; clientName: string }>>([]);
+  const [selectedEngagementId, setSelectedEngagementId] = useState("");
+
+  useEffect(() => {
+    fetch("/api/engagements")
+      .then((res) => res.json())
+      .then((data) => {
+        setEngagements(data);
+        if (data.length > 0) {
+          setSelectedEngagementId(data[0].id);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     fetch("/api/findings")
@@ -57,7 +71,7 @@ export default function NewRecommendationPage() {
 
     const form = new FormData(e.currentTarget);
     const body = {
-      engagementId: "engagement-1",
+      engagementId: selectedEngagementId,
       title: form.get("title") as string,
       description: form.get("description") as string,
       type: form.get("type") as string,
@@ -100,6 +114,23 @@ export default function NewRecommendationPage() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Engagement</label>
+          <select
+            value={selectedEngagementId}
+            onChange={(e) => setSelectedEngagementId(e.target.value)}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+          >
+            <option value="" disabled>Select an engagement...</option>
+            {engagements.map((eng) => (
+              <option key={eng.id} value={eng.id}>
+                {eng.name} ({eng.clientName})
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
           <select
