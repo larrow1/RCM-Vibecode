@@ -1,0 +1,104 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client-org-mapper"
+}
+
+model Engagement {
+  id               String   @id @default(cuid())
+  name             String
+  clientName       String
+  type             String   @default("OrgAssessment")
+  status           String   @default("Analysis")
+  startDate        DateTime
+  endDate          DateTime?
+  scopeDescription String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  orgUnits   OrgUnit[]
+  findings   Finding[]
+  importLogs ImportLog[]
+}
+
+model OrgUnit {
+  id                String  @id @default(cuid())
+  engagementId      String
+  name              String
+  title             String?
+  department        String?
+  type              String  @default("Role") // Division, Department, Team, Role
+  parentId          String?
+  level             Int     @default(0)
+  headcount         Int     @default(1)
+  totalCompensation Float   @default(0)
+  managerName       String?
+  managerTitle      String?
+  employeeId        String?
+
+  engagement Engagement @relation(fields: [engagementId], references: [id])
+  parent     OrgUnit?   @relation("OrgHierarchy", fields: [parentId], references: [id])
+  children   OrgUnit[]  @relation("OrgHierarchy")
+  findings   Finding[]
+
+  @@index([engagementId])
+  @@index([parentId])
+  @@index([department])
+  @@index([type])
+}
+
+model Finding {
+  id              String   @id @default(cuid())
+  engagementId    String
+  orgUnitId       String?
+  workstream      String   @default("Organizational")
+  category        String // Risk, Opportunity, Observation, Anomaly
+  severity        String // Critical, High, Medium, Low, Informational
+  title           String
+  description     String
+  financialImpact Float?
+  tags            String? // comma-separated
+  status          String   @default("Draft")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  engagement Engagement @relation(fields: [engagementId], references: [id])
+  orgUnit    OrgUnit?   @relation(fields: [orgUnitId], references: [id])
+
+  @@index([engagementId])
+  @@index([orgUnitId])
+  @@index([severity])
+}
+
+model ImportLog {
+  id           String   @id @default(cuid())
+  engagementId String
+  fileName     String
+  rowCount     Int
+  successCount Int
+  errorCount   Int
+  errors       String? // JSON stringified array
+  createdAt    DateTime @default(now())
+
+  engagement Engagement @relation(fields: [engagementId], references: [id])
+
+  @@index([engagementId])
+}
+
+model OrgBenchmark {
+  id         String  @id @default(cuid())
+  metric     String
+  industry   String
+  source     String
+  minHealthy Float
+  maxHealthy Float
+  median     Float
+  year       Int
+  notes      String?
+
+  @@index([metric, industry])
+}
