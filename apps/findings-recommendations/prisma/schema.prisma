@@ -39,7 +39,7 @@ model Finding {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  engagement             Engagement              @relation(fields: [engagementId], references: [id])
+  engagement             Engagement              @relation(fields: [engagementId], references: [id], onDelete: Cascade)
   evidence               Evidence[]
   linksFrom              FindingLink[]            @relation("FindingLinkFrom")
   linksTo                FindingLink[]            @relation("FindingLinkTo")
@@ -95,7 +95,7 @@ model Recommendation {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
-  engagement             Engagement              @relation(fields: [engagementId], references: [id])
+  engagement             Engagement              @relation(fields: [engagementId], references: [id], onDelete: Cascade)
   recommendationFindings RecommendationFinding[]
 
   @@index([engagementId])
@@ -125,7 +125,7 @@ model Theme {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  engagement    Engagement     @relation(fields: [engagementId], references: [id])
+  engagement    Engagement     @relation(fields: [engagementId], references: [id], onDelete: Cascade)
   themeFindings ThemeFinding[]
 
   @@index([engagementId])

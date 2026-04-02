@@ -17,13 +17,17 @@ export async function GET(
     if (status) where.status = status;
     if (priority) where.priority = priority;
 
+    const PRIORITY_ORDER: Record<string, number> = { Critical: 0, High: 1, Medium: 2, Low: 3 };
+
     const dataRequests = await prisma.dataRequest.findMany({
       where,
       include: {
         _count: { select: { documents: true } },
       },
-      orderBy: [{ dueDate: "asc" }, { priority: "asc" }],
+      orderBy: [{ dueDate: "asc" }],
     });
+
+    dataRequests.sort((a, b) => (PRIORITY_ORDER[a.priority] ?? 99) - (PRIORITY_ORDER[b.priority] ?? 99));
 
     return NextResponse.json(dataRequests);
   } catch (error) {

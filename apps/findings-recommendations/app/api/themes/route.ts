@@ -2,8 +2,15 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createThemeSchema } from "@/lib/validations";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const engagementId = searchParams.get("engagementId");
+
+  const where: Record<string, unknown> = {};
+  if (engagementId) where.engagementId = engagementId;
+
   const themes = await prisma.theme.findMany({
+    where,
     orderBy: { name: "asc" },
     include: {
       _count: { select: { themeFindings: true } },

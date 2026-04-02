@@ -6,6 +6,12 @@ export async function DELETE(
   { params }: { params: { id: string; linkId: string } }
 ) {
   try {
+    const link = await prisma.findingLink.findFirst({
+      where: { id: params.linkId, fromFindingId: params.id },
+    });
+    if (!link) {
+      return NextResponse.json({ error: "Link not found" }, { status: 404 });
+    }
     await prisma.findingLink.delete({
       where: { id: params.linkId },
     });

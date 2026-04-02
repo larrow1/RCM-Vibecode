@@ -39,7 +39,7 @@ model FinancialStatement {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  engagement Engagement         @relation(fields: [engagementId], references: [id])
+  engagement Engagement         @relation(fields: [engagementId], references: [id], onDelete: Cascade)
   lineItems  FinancialLineItem[]
 
   @@index([engagementId])
@@ -79,7 +79,7 @@ model Finding {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  engagement Engagement       @relation(fields: [engagementId], references: [id])
+  engagement Engagement       @relation(fields: [engagementId], references: [id], onDelete: Cascade)
   evidence   FindingEvidence[]
 
   @@index([engagementId])
@@ -93,7 +93,7 @@ model FindingEvidence {
   lineItemId String
 
   finding  Finding           @relation(fields: [findingId], references: [id], onDelete: Cascade)
-  lineItem FinancialLineItem @relation(fields: [lineItemId], references: [id])
+  lineItem FinancialLineItem @relation(fields: [lineItemId], references: [id], onDelete: Cascade)
 
   @@index([findingId])
   @@index([lineItemId])
@@ -111,7 +111,7 @@ model Benchmark {
   year         Int
   notes        String?
 
-  engagement Engagement? @relation(fields: [engagementId], references: [id])
+  engagement Engagement? @relation(fields: [engagementId], references: [id], onDelete: Cascade)
 
   @@index([metric, industry])
 }
@@ -126,7 +126,7 @@ model EbitdaAdjustment {
   lineItemId     String?
   createdAt      DateTime @default(now())
 
-  engagement Engagement @relation(fields: [engagementId], references: [id])
+  engagement Engagement @relation(fields: [engagementId], references: [id], onDelete: Cascade)
 
   @@index([engagementId])
 }
