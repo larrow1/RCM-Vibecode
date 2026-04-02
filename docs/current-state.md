@@ -1,7 +1,7 @@
 # Current State
 
 > Quick-resume document for any agent picking up this ClawTown. Read this first.
-> Last updated: 2026-04-02
+> Last updated: 2026-04-02 (end of session 2)
 
 ## Platform
 
@@ -55,9 +55,7 @@
 - Environment-aware URLs
 - Port: 3004
 
-## What's In Progress
-
-### AI Progress Flow (`apps/progress-flow/`)
+### 6. Progress Flow (`apps/progress-flow/`)
 - **Status**: DONE — builds, seeds, 50 tests passing
 - AI-powered workflow creation for assessment engagements
 - 3 assessment templates: Full Assessment (5 phases, 31 tasks), Financial DD (4 phases, 16 tasks), Operational Review (3 phases, 13 tasks)
@@ -66,6 +64,10 @@
 - Dashboard with engagement-wide completion metrics
 - Seed data: 3 engagements, 1 flow with 5 phases and 31 tasks, 3 templates
 - Port: 3005
+
+## What's In Progress
+
+Nothing currently in active development. Ready for next feature.
 
 ## Next Priorities (from backlog)
 
@@ -113,6 +115,7 @@
 │   ├── engagement-workspace/    # ✅ DONE — Assessment engagement hub
 │   ├── findings-recommendations/ # ✅ DONE — Findings & recommendations engine
 │   ├── progress-flow/           # ✅ DONE — AI progress flow tracker
+│   ├── app-library/             # ✅ DONE — Platform catalog portal
 │   └── client-hub/              # ⚠️ DEPRECATED
 ├── packages/
 │   └── ai-config/               # ✅ DONE — Multi-provider AI configuration
@@ -129,4 +132,5 @@
 | Findings & Recommendations | 43 | ✅ Passing |
 | AI Config | 26 | ✅ Passing |
 | Progress Flow | 50 | ✅ Passing |
-| **Total** | **224** | ✅ All Passing |
+| App Library (e2e) | 26 | ✅ Passing (Playwright) |
+| **Total** | **250** | ✅ All Passing |
