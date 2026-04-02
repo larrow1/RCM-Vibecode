@@ -58,3 +58,15 @@
   - Findings & Recommendations: 43 tests passing (impact calculator, quadrant classification, validation schemas)
 [2026-04-02 06:10] QA Engineer: Both apps build successfully with `next build`
 [2026-04-02 06:15] Orchestrator: Updated backlog — Engagement Workspace and Findings & Recommendations moved to DONE
+
+## 2026-04-02 — Org Mapper Pipeline
+
+[2026-04-02 22:30] Orchestrator: Starting Org Mapper pipeline (backlog item #4) — spec → architecture → build → test
+[2026-04-02 22:35] Product Manager: Completed Org Mapper spec — 12 user stories (James + Marcus), CSV import, tree visualization, span of control, headcount/cost roll-ups, role duplication, findings linking → docs/specs/org-mapper.md
+[2026-04-02 22:40] Architect: Completed Org Mapper architecture — 5 Prisma models, 12 API routes, 5 pages, HTML/CSS tree, port 3006 → docs/architecture/org-mapper.md
+[2026-04-02 22:45] Developer: Built Org Mapper app with: Prisma schema (Engagement, OrgUnit, Finding, ImportLog, OrgBenchmark), 12 API routes, 5 pages (Dashboard, Engagement Detail with org tree, Import, Analytics, Findings), 12 components (expandable org tree, span of control table, headcount/cost summaries, duplication table, CSV uploader with column mapper, finding form), department color coding → apps/org-mapper/
+[2026-04-02 22:45] Developer: Created seed data — Acme Corp org structure with 51 people across 6 departments (Executive, Engineering, Finance, Sales, Marketing, HR), includes span-of-control issues (14 reports, 2 reports), 6 confirmed findings, 5 industry benchmarks → apps/org-mapper/prisma/seed.ts
+[2026-04-02 22:48] QA Engineer: 78 tests passing across 3 test files — org tree building, span of control computation, headcount/cost roll-ups, title normalization, role duplication detection, summary metrics, Zod validation schemas, CSV import parsing → apps/org-mapper/tests/
+[2026-04-02 22:48] QA Engineer: App builds successfully with `next build` — all 14 routes compiled
+[2026-04-02 22:50] Orchestrator: Updated app-library (org-mapper → live, port 3006, 78 tests), backlog (moved to DONE), current-state (252 total tests)
+[2026-04-02 22:50] Orchestrator: Org Mapper pipeline complete. All artifacts produced, app builds, 78 tests pass.

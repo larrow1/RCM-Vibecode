@@ -1,7 +1,7 @@
 # Current State
 
 > Quick-resume document for any agent picking up this ClawTown. Read this first.
-> Last updated: 2026-04-02
+> Last updated: 2026-04-02 (Org Mapper added)
 
 ## Platform
 
@@ -41,7 +41,18 @@
 - Seed data: 8 findings, 6 cross-references, 5 recommendations, 3 themes
 - Port: 3002 (default)
 
-### 4. AI Config Package (`packages/ai-config/`)
+### 5. Org Mapper (`apps/org-mapper/`)
+- **Status**: DONE — builds, seeds, 78 tests passing
+- CSV import with auto-column detection for HR data exports
+- Expandable org chart visualization (HTML/CSS tree, color-coded by department)
+- Span of control analysis with flags for <3 and >12 direct reports
+- Headcount and labor cost roll-ups by department and level
+- Role duplication detection across departments
+- Findings capture linked to specific org units
+- Seed data: Acme Corp with 51 org units across 6 departments, 6 findings, 5 benchmarks
+- Port: 3006
+
+### 6. AI Config Package (`packages/ai-config/`)
 - **Status**: DONE — 26 tests passing
 - Multi-provider support: Anthropic, OpenAI, Google AI
 - React components: AIConfigPanel, AIConfigBadge, useAIConfig hook
@@ -56,9 +67,8 @@ Nothing currently in active development. Ready for next feature.
 
 | Priority | Feature | Why |
 |----------|---------|-----|
-| **1** | Org Mapper (#4) | Visualize and analyze org structures — hierarchy, spans of control, headcount, labor costs. Core assessment workstream. |
-| **2** | Contract Tracker (#5) | Catalog contracts, extract key terms, track obligations. Completes the three-pillar assessment capability. |
-| **3** | Deliverable Builder (#6) | Generate reports from findings/recommendations. Saves 20-30% of engagement time on formatting. |
+| **1** | Contract Tracker (#5) | Catalog contracts, extract key terms, track obligations. Completes the three-pillar assessment capability. |
+| **2** | Deliverable Builder (#6) | Generate reports from findings/recommendations. Saves 20-30% of engagement time on formatting. |
 
 ## Key Research Artifacts
 
@@ -96,6 +106,7 @@ Nothing currently in active development. Ready for next feature.
 │   ├── financial-analyzer/      # ✅ DONE — Financial analysis tool
 │   ├── engagement-workspace/    # ✅ DONE — Assessment engagement hub
 │   ├── findings-recommendations/ # ✅ DONE — Findings & recommendations engine
+│   ├── org-mapper/              # ✅ DONE — Org visualization & analytics
 │   └── client-hub/              # ⚠️ DEPRECATED
 ├── packages/
 │   └── ai-config/               # ✅ DONE — Multi-provider AI configuration
@@ -110,5 +121,6 @@ Nothing currently in active development. Ready for next feature.
 | Financial Analyzer | 74 | ✅ Passing |
 | Engagement Workspace | 31 | ✅ Passing |
 | Findings & Recommendations | 43 | ✅ Passing |
+| Org Mapper | 78 | ✅ Passing |
 | AI Config | 26 | ✅ Passing |
-| **Total** | **174** | ✅ All Passing |
+| **Total** | **252** | ✅ All Passing |
