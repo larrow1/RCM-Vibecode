@@ -52,6 +52,25 @@ Format: `[YYYY-MM-DD HH:MM] Agent Name: What was done → artifact path`
 
 This log is the single source of truth for understanding what the ClawTown has done, what's in progress, and what's blocked. The Orchestrator should read it at the start of every session to understand current state.
 
+### Resilience Protocol
+
+Agents may be interrupted by timeouts, context limits, or session drops. To ensure continuity:
+
+1. **Checkpoint frequently** — Commit and push after completing each phase (spec, architecture, build, test). Don't batch everything into one final commit.
+2. **Update the coordination log in real-time** — Append to `docs/coordination-log.md` as each step completes, not at the end.
+3. **Update the backlog as items move** — Change status in `docs/backlog.md` at each transition (RESEARCHING → SPECIFIED → DESIGNING → etc.), not just when DONE.
+4. **Write a current-state summary** — Maintain `docs/current-state.md` with:
+   - What's been built and is working
+   - What's currently in progress (and how far along)
+   - What's blocked and why
+   - What the next priorities are
+   - Known issues or technical debt
+5. **Recovery procedure** — Any new agent session should:
+   - Read `docs/current-state.md` first for the quick picture
+   - Read `docs/coordination-log.md` for detailed history
+   - Read `docs/backlog.md` for priorities
+   - Continue from where the last agent left off
+
 ### Conventions
 
 - All apps live in `apps/` as separate packages
