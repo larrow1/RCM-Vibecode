@@ -9,9 +9,7 @@ _No items in active development._
 
 ## In Pipeline
 
-| # | Feature | Description | Status | Owner |
-|---|---------|-------------|--------|-------|
-| 1 | Financial Analyzer | Ingest financial statements, normalize across periods/entities, ratio analysis, trend identification, peer benchmarking | RESEARCHING | User Researcher, Business Analyst |
+_No items in pipeline._
 
 ## Ideas
 
@@ -42,4 +40,5 @@ _No items in active development._
 
 | # | Feature | Description | Completed | Artifacts |
 |---|---------|-------------|-----------|-----------|
+| 1 | Financial Analyzer | Ingest financial statements, normalize across periods/entities, ratio analysis, trend charts, EBITDA normalization, findings capture | 2026-04-02 | `docs/specs/financial-analyzer.md`, `docs/architecture/financial-analyzer.md`, `apps/financial-analyzer/`, `docs/testing/financial-analyzer-test-plan.md` |
 | — | Client Hub (deprecated) | Generic CRM — replaced by assessment-focused features | 2026-04-02 | Superseded |
