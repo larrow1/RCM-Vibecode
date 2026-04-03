@@ -1,0 +1,62 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client-idea-portal"
+}
+
+model Idea {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  authorName  String
+  category    String   // evidence-collection, data-normalization, structural-analysis, pattern-recognition, cross-domain-synthesis, impact-quantification, communication-delivery
+  persona     String?  // Rachel, James, Priya, Marcus, All
+  status      String   @default("submitted") // submitted, under-review, researching, specified, in-development, shipped, declined
+  priority    String?  // low, medium, high, critical
+  effort      String?  // low, medium, high
+  impact      String?  // low, medium, high, very-high
+  votes       Int      @default(0)
+  tags        String?  // comma-separated
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  comments Comment[]
+  voters   Vote[]
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  ideaId     String
+  authorName String
+  content    String
+  role       String?  // user, product-manager, architect, developer
+  createdAt  DateTime @default(now())
+
+  idea Idea @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+
+  @@index([ideaId])
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  ideaId    String
+  voterName String
+  createdAt DateTime @default(now())
+
+  idea Idea @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+
+  @@unique([ideaId, voterName])
+  @@index([ideaId])
+}
+
+model Category {
+  id          String @id @default(cuid())
+  slug        String @unique
+  name        String
+  description String
+  sortOrder   Int    @default(0)
+}

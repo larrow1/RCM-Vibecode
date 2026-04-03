@@ -1,7 +1,7 @@
 # Current State
 
 > Quick-resume document for any agent picking up this ClawTown. Read this first.
-> Last updated: 2026-04-02 (Org Mapper added)
+> Last updated: 2026-04-03 (Idea Portal + assessment ideation added)
 
 ## Platform
 
@@ -52,7 +52,18 @@
 - Seed data: Acme Corp with 51 org units across 6 departments, 6 findings, 5 benchmarks
 - Port: 3006
 
-### 6. AI Config Package (`packages/ai-config/`)
+### 6. Idea Portal (`apps/idea-portal/`)
+- **Status**: DONE — builds, seeds, 49 tests passing
+- Submit ideas for new platform tools with title, description, category, persona, tags
+- Vote on ideas to influence prioritization
+- Comment threads with role-based indicators (user, product-manager, architect, developer)
+- Filter by category (7 assessment fundamentals) and status; sort by votes or date
+- Status lifecycle: submitted → under-review → researching → specified → in-development → shipped
+- Product team triage with priority, impact, and effort scoring
+- Seed data: 12 ideas from product brainstorm, 155 votes, 5 comments, 7 categories
+- Port: 3007
+
+### 7. AI Config Package (`packages/ai-config/`)
 - **Status**: DONE — 26 tests passing
 - Multi-provider support: Anthropic, OpenAI, Google AI
 - React components: AIConfigPanel, AIConfigBadge, useAIConfig hook
@@ -107,6 +118,7 @@ Nothing currently in active development. Ready for next feature.
 │   ├── engagement-workspace/    # ✅ DONE — Assessment engagement hub
 │   ├── findings-recommendations/ # ✅ DONE — Findings & recommendations engine
 │   ├── org-mapper/              # ✅ DONE — Org visualization & analytics
+│   ├── idea-portal/             # ✅ DONE — Community idea submission & voting
 │   └── client-hub/              # ⚠️ DEPRECATED
 ├── packages/
 │   └── ai-config/               # ✅ DONE — Multi-provider AI configuration
@@ -122,5 +134,6 @@ Nothing currently in active development. Ready for next feature.
 | Engagement Workspace | 31 | ✅ Passing |
 | Findings & Recommendations | 43 | ✅ Passing |
 | Org Mapper | 78 | ✅ Passing |
+| Idea Portal | 49 | ✅ Passing |
 | AI Config | 26 | ✅ Passing |
-| **Total** | **252** | ✅ All Passing |
+| **Total** | **301** | ✅ All Passing |

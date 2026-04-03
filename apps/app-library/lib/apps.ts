@@ -197,6 +197,30 @@ export const APPS: AppInfo[] = [
     techStack: ["React", "Zod", "TypeScript"],
     testCount: 26,
   },
+  {
+    id: "idea-portal",
+    name: "Idea Portal",
+    tagline: "Submit, vote, and discuss ideas for new platform tools",
+    description:
+      "A community-driven interface for submitting, voting on, and discussing ideas for new assessment platform tools. Ideas are organized by assessment fundamentals (evidence collection, data normalization, structural analysis, pattern recognition, cross-domain synthesis, impact quantification, communication & delivery). Users can vote to prioritize, comment with feedback, and product managers can triage ideas through the pipeline to the backlog.",
+    category: "infrastructure",
+    status: "live",
+    port: 3007,
+    path: "apps/idea-portal",
+    icon: "💡",
+    features: [
+      "Submit ideas with category, persona, and tags",
+      "Vote on ideas to influence prioritization",
+      "Comment threads with role indicators",
+      "Filter by category, status, and sort by votes/date",
+      "Status lifecycle: submitted through shipped/declined",
+      "Product team triage with priority/impact/effort scoring",
+      "Ideas organized by 7 assessment fundamentals",
+    ],
+    primaryPersona: "All — consultants and product team",
+    techStack: ["Next.js 14", "Prisma", "SQLite", "Tailwind CSS", "Zod"],
+    testCount: 49,
+  },
 ];
 
 export function getAppsByCategory(): Record<AppCategory, AppInfo[]> {
